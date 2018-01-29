@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+
+
+		.seats-stage {
+			width: 500px;
+			height: 500px;
+			overflow: hidden;
+		}
+
+		.seats-list {
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+			font-size: 10px;
+		}
+		.seats-list li {
+			display: block;
+			position: absolute;
+			width: 4em;
+			height: 4em;
+
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+		}
+
+		.toselect {
+			background-image: url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><rect id="a" y="47.565" width="32.965" height="131.629" rx="8"/><rect id="b" x="146.931" y="47.565" width="32.965" height="131.629" rx="8"/><rect id="c" x="16.483" y="113.684" width="146.931" height="36.276" rx="8"/><rect id="d" x="38.965" width="102.035" height="109" rx="8"/></defs><g fill="#fff" fill-rule="evenodd"><use fill="#FFF" xlink:href="#a"/><rect stroke="#979797" x=".5" y="48.065" width="31.965" height="130.629" rx="8"/><use fill="#FFF" xlink:href="#b"/><rect stroke="#979797" x="147.431" y="48.065" width="31.965" height="130.629" rx="8"/><g><use fill="#FFF" xlink:href="#c"/><rect stroke="#979797" x="16.983" y="114.184" width="145.931" height="35.276" rx="8"/></g><g><use fill="#FFF" xlink:href="#d"/><rect stroke="#979797" x="39.465" y=".5" width="101.035" height="108" rx="8"/></g></g></svg>');
+		}
+		.selecting {
+			background-image: url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><rect id="a" y="47.565" width="32.965" height="131.629" rx="8"/><rect id="b" x="146.931" y="47.565" width="32.965" height="131.629" rx="8"/><rect id="c" x="16.483" y="113.684" width="146.931" height="36.276" rx="8"/><rect id="d" x="38.965" width="102.035" height="109" rx="8"/></defs><g fill="#3cbc6f" fill-rule="evenodd"><use fill="#FFF" xlink:href="#a"/><rect stroke="#979797" x=".5" y="48.065" width="31.965" height="130.629" rx="8"/><use fill="#FFF" xlink:href="#b"/><rect stroke="#979797" x="147.431" y="48.065" width="31.965" height="130.629" rx="8"/><g><use fill="#FFF" xlink:href="#c"/><rect stroke="#979797" x="16.983" y="114.184" width="145.931" height="35.276" rx="8"/></g><g><use fill="#FFF" xlink:href="#d"/><rect stroke="#979797" x="39.465" y=".5" width="101.035" height="108" rx="8"/></g></g></svg>');
+		}
+		.disselect {
+			background-image: url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><rect id="a" y="47.565" width="32.965" height="131.629" rx="8"/><rect id="b" x="146.931" y="47.565" width="32.965" height="131.629" rx="8"/><rect id="c" x="16.483" y="113.684" width="146.931" height="36.276" rx="8"/><rect id="d" x="38.965" width="102.035" height="109" rx="8"/></defs><g fill="#f53d35" fill-rule="evenodd"><use fill="#FFF" xlink:href="#a"/><rect stroke="#979797" x=".5" y="48.065" width="31.965" height="130.629" rx="8"/><use fill="#FFF" xlink:href="#b"/><rect stroke="#979797" x="147.431" y="48.065" width="31.965" height="130.629" rx="8"/><g><use fill="#FFF" xlink:href="#c"/><rect stroke="#979797" x="16.983" y="114.184" width="145.931" height="35.276" rx="8"/></g><g><use fill="#FFF" xlink:href="#d"/><rect stroke="#979797" x="39.465" y=".5" width="101.035" height="108" rx="8"/></g></g></svg>');
+		}
+		.selected {
+			background-image: url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><rect id="a" y="47.565" width="32.965" height="131.629" rx="8"/><rect id="b" x="146.931" y="47.565" width="32.965" height="131.629" rx="8"/><rect id="c" x="16.483" y="113.684" width="146.931" height="36.276" rx="8"/><rect id="d" x="38.965" width="102.035" height="109" rx="8"/></defs><g fill="#f3a91d" fill-rule="evenodd"><use fill="#FFF" xlink:href="#a"/><rect stroke="#979797" x=".5" y="48.065" width="31.965" height="130.629" rx="8"/><use fill="#FFF" xlink:href="#b"/><rect stroke="#979797" x="147.431" y="48.065" width="31.965" height="130.629" rx="8"/><g><use fill="#FFF" xlink:href="#c"/><rect stroke="#979797" x="16.983" y="114.184" width="145.931" height="35.276" rx="8"/></g><g><use fill="#FFF" xlink:href="#d"/><rect stroke="#979797" x="39.465" y=".5" width="101.035" height="108" rx="8"/></g></g></svg>');
+		}
+
+		.seats-list li label {
+			display: block;
+			height: 100%;
+			width: 100%;
+		}
+		.seats-list li input {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="seats-stage">
+		<ul class="seats-list">
+			<li class="toselect" style="transform: matrix(1, 0, 0, 1, 0, 0);">
+				<input type="checkbox" id="seat1" checked="disabled">
+				<label for="seat1"></label>
+			</li>
+			<li class="selecting" style="transform: matrix(1, 0, 0, 1, 40, 0);">
+				<input type="checkbox">
+				<label for=""></label>
+			</li>
+			<li class="disselect" style="transform: translate(10em, 10em);">
+				<input type="checkbox">
+				<label for=""></label>
+			</li>
+			<li class="selected" style="transform: translate(15em, 15em);">
+				<input type="checkbox">
+				<label for=""></label>
+			</li>
+		</ul>
+	</div>
+
+	<!-- <div class="seats-stage">
+		<div class="seats-set">
+			<div class="seats-playground"></div>
+			<ul class="seats-mark">
+				
+			</ul>
+			<ul class="seats-list">
+				<li>
+					<input type="checkbox" id="seat95">
+					<label for="seat95"></label>
+				</li>
+			</ul>
+		</div>
+		<ul class="seats-example">
+			<li>
+				<i></i>
+				<span></span>
+			</li>
+		</ul>
+	</div> -->
+
+	<script type="text/javascript">
+		var config = {
+			"unit": "10px",
+		}
+		var seat = {
+			"row": 1,
+			"col": 1,
+			"x": 1,
+			"y": 1,
+			"w": 4,
+			"h": 4,
+			"space": 1,
+			"status": 0, //0 可选; 1 不可选; 2 已选中
+			"type": 0, //0 默认座位样式 1 自定义座位样式
+		}
+	</script>
+</body>
+</html>
