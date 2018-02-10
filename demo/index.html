@@ -51,7 +51,7 @@
 	</style>
 </head>
 <body>
-	<div class="seats-stage">
+	<div class="seats-stage" id="seatarea">
 		<ul class="seats-list">
 			<li class="toselect" style="transform: matrix(1, 0, 0, 1, 0, 0);">
 				<input type="checkbox" id="seat1" checked="disabled">
@@ -93,21 +93,6 @@
 		</ul>
 	</div> -->
 
-	<script type="text/javascript">
-		var config = {
-			"unit": "10px",
-		}
-		var seat = {
-			"row": 1,
-			"col": 1,
-			"x": 1,
-			"y": 1,
-			"w": 4,
-			"h": 4,
-			"space": 1,
-			"status": 0, //0 可选; 1 不可选; 2 已选中
-			"type": 0, //0 默认座位样式 1 自定义座位样式
-		}
-	</script>
+	<script type="text/javascript" src="../js/seat.js"></script>
 </body>
 </html>
