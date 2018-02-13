@@ -23,7 +23,7 @@ var mockData = [
 		// "y": 1,
 		"w": 4,
 		"h": 4,
-		"status": 0, //0 可选; 1 不可选; 2 已选中
+		"status": 1, //0 可选; 1 不可选; 2 已选中
 		"type": 0,
 	}, {
 		"row": 1,
@@ -41,7 +41,7 @@ var mockData = [
 		// "y": 1,
 		"w": 4,
 		"h": 4,
-		"status": 0, //0 可选; 1 不可选; 2 已选中
+		"status": 1, //0 可选; 1 不可选; 2 已选中
 		"type": 0,
 	}, {
 		"row": 1,
@@ -131,7 +131,7 @@ var mockData = [
 		// "y": 1,
 		"w": 4,
 		"h": 4,
-		"status": 0, //0 可选; 1 不可选; 2 已选中
+		"status": 1, //0 可选; 1 不可选; 2 已选中
 		"type": 0,
 	}, {
 		"row": 3,
@@ -140,7 +140,7 @@ var mockData = [
 		// "y": 1,
 		"w": 4,
 		"h": 4,
-		"status": 0, //0 可选; 1 不可选; 2 已选中
+		"status": 1, //0 可选; 1 不可选; 2 已选中
 		"type": 0,
 	}, {
 		"row": 3,
@@ -185,10 +185,190 @@ var mockData = [
 		// "y": 1,
 		"w": 4,
 		"h": 4,
-		"status": 0, //0 可选; 1 不可选; 2 已选中
+		"status": 1, //0 可选; 1 不可选; 2 已选中
 		"type": 0,
 	}, {
 		"row": 4,
+		"col": 6,
+		// "x": 1,
+		// "y": 1,
+		"w": 4,
+		"h": 4,
+		"status": 0, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 5,
+		"col": 1,
+		// "x": 1,
+		// "y": 1,
+		"w": 4,
+		"h": 4,
+		"status": 0, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 5,
+		"col": 2,
+		// "x": 1,
+		// "y": 1,
+		"w": 4,
+		"h": 4,
+		"status": 0, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 5,
+		"col": 3,
+		// "x": 1,
+		// "y": 1,
+		"w": 4,
+		"h": 4,
+		"status": 0, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 5,
+		"col": 5,
+		// "x": 1,
+		// "y": 1,
+		"w": 4,
+		"h": 4,
+		"status": 1, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 5,
+		"col": 6,
+		// "x": 1,
+		// "y": 1,
+		"w": 4,
+		"h": 4,
+		"status": 1, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 6,
+		"col": 1,
+		// "x": 1,
+		// "y": 1,
+		"w": 4,
+		"h": 4,
+		"status": 1, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 6,
+		"col": 2,
+		// "x": 1,
+		// "y": 1,
+		"w": 4,
+		"h": 4,
+		"status": 1, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 6,
+		"col": 3,
+		// "x": 1,
+		// "y": 1,
+		"w": 4,
+		"h": 4,
+		"status": 0, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 6,
+		"col": 5,
+		// "x": 1,
+		// "y": 1,
+		"w": 4,
+		"h": 4,
+		"status": 1, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 6,
+		"col": 6,
+		// "x": 1,
+		// "y": 1,
+		"w": 4,
+		"h": 4,
+		"status": 1, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 7,
+		"col": 1,
+		// "x": 1,
+		// "y": 1,
+		"w": 4,
+		"h": 4,
+		"status": 1, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 7,
+		"col": 2,
+		// "x": 1,
+		// "y": 1,
+		"w": 4,
+		"h": 4,
+		"status": 0, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 7,
+		"col": 3,
+		// "x": 1,
+		// "y": 1,
+		"w": 4,
+		"h": 4,
+		"status": 0, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 7,
+		"col": 5,
+		// "x": 1,
+		// "y": 1,
+		"w": 4,
+		"h": 4,
+		"status": 1, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 7,
+		"col": 6,
+		// "x": 1,
+		// "y": 1,
+		"w": 4,
+		"h": 4,
+		"status": 1, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 8,
+		"col": 1,
+		// "x": 1,
+		// "y": 1,
+		"w": 4,
+		"h": 4,
+		"status": 1, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 8,
+		"col": 2,
+		// "x": 1,
+		// "y": 1,
+		"w": 4,
+		"h": 4,
+		"status": 1, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 8,
+		"col": 3,
+		// "x": 1,
+		// "y": 1,
+		"w": 4,
+		"h": 4,
+		"status": 0, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 8,
+		"col": 5,
+		// "x": 1,
+		// "y": 1,
+		"w": 4,
+		"h": 4,
+		"status": 1, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 8,
 		"col": 6,
 		// "x": 1,
 		// "y": 1,
@@ -212,7 +392,7 @@ var mockData = [
 
 		root.mockData.forEach(function (item) {
 			strHtml = strHtml + '\
-			<li class="' + (item.status == 0 ? 'toselect' : (item.status == 1 ? 'disselect' : 'selected')) + '" style="transform: matrix(1, 0, 0, 1, ' + (root.config.unit * ((item.col - 1) * (item.w + root.config.space))) + ', ' + (root.config.unit * ((item.row - 1) * (item.h + root.config.space))) + ');">\
+			<li class="' + (item.status == 0 ? 'toselect' : (item.status == 1 ? 'disselect' : 'selected')) + '" style="transform: matrix(1, 0, 0, 1, ' + (root.config.unit * ((item.col - 1) * (item.w + root.config.space) + 1)) + ', ' + (root.config.unit * ((item.row - 1) * (item.h + root.config.space) + 1)) + ');">\
 				<input type="checkbox">\
 				<label for=""></label>\
 			</li>';
@@ -221,6 +401,21 @@ var mockData = [
 		strHtml += '</ul>';
 
 		container.innerHTML = strHtml;
+
+		var seatsDom = container.getElementsByClassName("seats-list")[0];
+		container.addEventListener("mouseup", function(evt) {
+			seatsDom.style.transformOrigin = evt.offsetX + "px " + evt.offsetY + "px";
+		}, false);
+
+		container.addEventListener("wheel", function(evt) {
+			if (evt.wheelDelta > 0) {
+				// 向上滚动 放大
+				seatsDom.style.transform = "scale(2)";
+			} else {
+				// 向下滚动 缩小
+				seatsDom.style.transform = "scale(0.5)";
+			}
+		}, false);
 	} catch(e) {
 		console.error(e)
 	}
