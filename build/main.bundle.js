@@ -70,6 +70,12 @@
 "use strict";
 
 
+var _Seat = __webpack_require__(1);
+
+var _Seat2 = _interopRequireDefault(_Seat);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var config = {
 	"unit": 10,
 	"limit": 2,
@@ -449,47 +455,118 @@ var mockData = [{
 	"type": 0
 }];
 
-(function (config, data) {
-	try {
-		if (config.id) {
-			var container = document.getElementById(config.id);
-		} else {
-			throw "please set dom id, init failed.";
-		}
+new _Seat2.default(config, mockData);
 
-		var strHtml = '';
-		strHtml += '<ul class="seats-list">';
+// (function (config, data) {
+// 	try {
+// 		if (config.id) {
+// 			var container = document.getElementById(config.id);
+// 		} else {
+// 			throw "please set dom id, init failed.";
+// 		}
 
-		data.forEach(function (item) {
-			strHtml = strHtml + '\
-			<li class="' + (item.status == 0 ? 'toselect' : item.status == 1 ? 'disselect' : 'selected') + '" style="transform: matrix(1, 0, 0, 1, ' + config.unit * ((item.col - 1) * (item.w + config.space) + 1) + ', ' + config.unit * ((item.row - 1) * (item.h + config.space) + 1) + ');">\
+// 		var strHtml = '';
+// 		strHtml += '<ul class="seats-list">';
+
+// 		data.forEach(function (item) {
+// 			strHtml = strHtml + '\
+// 			<li class="' + (item.status == 0 ? 'toselect' : (item.status == 1 ? 'disselect' : 'selected')) + '" style="transform: matrix(1, 0, 0, 1, ' + (config.unit * ((item.col - 1) * (item.w + config.space) + 1)) + ', ' + (config.unit * ((item.row - 1) * (item.h + config.space) + 1)) + ');">\
+// 				<input type="checkbox">\
+// 				<label for=""></label>\
+// 			</li>';
+// 		});
+
+// 		strHtml += '</ul>';
+
+// 		container.innerHTML = strHtml;
+
+// 		var seatsDom = container.getElementsByClassName("seats-list")[0];
+// 		container.addEventListener("mouseup", function(evt) {
+// 			seatsDom.style.transformOrigin = evt.offsetX + "px " + evt.offsetY + "px";
+// 		}, false);
+
+// 		container.addEventListener("wheel", function(evt) {
+// 			if (evt.wheelDelta > 0) {
+// 				// 向上滚动 放大
+// 				seatsDom.style.transform = "scale(2)";
+// 			} else {
+// 				// 向下滚动 缩小
+// 				seatsDom.style.transform = "scale(0.5)";
+// 			}
+// 		}, false);
+// 	} catch(e) {
+// 		console.error(e)
+// 	}
+// })(config, mockData);
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Seat = function () {
+    function Seat(config, data) {
+        _classCallCheck(this, Seat);
+
+        this.domId = config.id;
+        this.unit = config.unit;
+        this.space = config.space;
+        this.limit = config.limit;
+        this.seatH = config.seatH;
+        this.seatW = config.seatW;
+        this.data = data;
+
+        try {
+            this.contain = document.getElementById(config.id);
+        } catch (e) {
+            throw "please set dom id, init failed.";
+        }
+
+        this._renderSeats();
+        this._bindEvent();
+    }
+
+    _createClass(Seat, [{
+        key: "_renderSeats",
+        value: function _renderSeats() {
+            var _this = this;
+
+            var strHtml = "";
+
+            strHtml += '<ul class="seats-list">';
+
+            this.data.forEach(function (item) {
+                strHtml = strHtml + '\
+			<li class="' + (item.status == 0 ? 'toselect' : item.status == 1 ? 'disselect' : 'selected') + '" style="transform: matrix(1, 0, 0, 1, ' + _this.unit * ((item.col - 1) * (item.w + _this.space) + 1) + ', ' + _this.unit * ((item.row - 1) * (item.h + _this.space) + 1) + ');">\
 				<input type="checkbox">\
 				<label for=""></label>\
 			</li>';
-		});
+            });
 
-		strHtml += '</ul>';
+            strHtml += '</ul>';
 
-		container.innerHTML = strHtml;
+            this.contain.innerHTML = strHtml;
+        }
+    }, {
+        key: "_bindEvent",
+        value: function _bindEvent() {}
+    }]);
 
-		var seatsDom = container.getElementsByClassName("seats-list")[0];
-		container.addEventListener("mouseup", function (evt) {
-			seatsDom.style.transformOrigin = evt.offsetX + "px " + evt.offsetY + "px";
-		}, false);
+    return Seat;
+}();
 
-		container.addEventListener("wheel", function (evt) {
-			if (evt.wheelDelta > 0) {
-				// 向上滚动 放大
-				seatsDom.style.transform = "scale(2)";
-			} else {
-				// 向下滚动 缩小
-				seatsDom.style.transform = "scale(0.5)";
-			}
-		}, false);
-	} catch (e) {
-		console.error(e);
-	}
-})(config, mockData);
+exports.default = Seat;
+;
 
 /***/ })
 /******/ ]);

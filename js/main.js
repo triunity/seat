@@ -1,3 +1,5 @@
+import Seat from "./Seat.js"
+
 var config = {
 	"unit": 10,
 	"limit": 2,
@@ -379,44 +381,46 @@ var mockData = [
 	}
 ];
 
-(function (config, data) {
-	try {
-		if (config.id) {
-			var container = document.getElementById(config.id);
-		} else {
-			throw "please set dom id, init failed.";
-		}
+new Seat(config, mockData);
 
-		var strHtml = '';
-		strHtml += '<ul class="seats-list">';
+// (function (config, data) {
+// 	try {
+// 		if (config.id) {
+// 			var container = document.getElementById(config.id);
+// 		} else {
+// 			throw "please set dom id, init failed.";
+// 		}
 
-		data.forEach(function (item) {
-			strHtml = strHtml + '\
-			<li class="' + (item.status == 0 ? 'toselect' : (item.status == 1 ? 'disselect' : 'selected')) + '" style="transform: matrix(1, 0, 0, 1, ' + (config.unit * ((item.col - 1) * (item.w + config.space) + 1)) + ', ' + (config.unit * ((item.row - 1) * (item.h + config.space) + 1)) + ');">\
-				<input type="checkbox">\
-				<label for=""></label>\
-			</li>';
-		});
+// 		var strHtml = '';
+// 		strHtml += '<ul class="seats-list">';
 
-		strHtml += '</ul>';
+// 		data.forEach(function (item) {
+// 			strHtml = strHtml + '\
+// 			<li class="' + (item.status == 0 ? 'toselect' : (item.status == 1 ? 'disselect' : 'selected')) + '" style="transform: matrix(1, 0, 0, 1, ' + (config.unit * ((item.col - 1) * (item.w + config.space) + 1)) + ', ' + (config.unit * ((item.row - 1) * (item.h + config.space) + 1)) + ');">\
+// 				<input type="checkbox">\
+// 				<label for=""></label>\
+// 			</li>';
+// 		});
 
-		container.innerHTML = strHtml;
+// 		strHtml += '</ul>';
 
-		var seatsDom = container.getElementsByClassName("seats-list")[0];
-		container.addEventListener("mouseup", function(evt) {
-			seatsDom.style.transformOrigin = evt.offsetX + "px " + evt.offsetY + "px";
-		}, false);
+// 		container.innerHTML = strHtml;
 
-		container.addEventListener("wheel", function(evt) {
-			if (evt.wheelDelta > 0) {
-				// 向上滚动 放大
-				seatsDom.style.transform = "scale(2)";
-			} else {
-				// 向下滚动 缩小
-				seatsDom.style.transform = "scale(0.5)";
-			}
-		}, false);
-	} catch(e) {
-		console.error(e)
-	}
-})(config, mockData);
+// 		var seatsDom = container.getElementsByClassName("seats-list")[0];
+// 		container.addEventListener("mouseup", function(evt) {
+// 			seatsDom.style.transformOrigin = evt.offsetX + "px " + evt.offsetY + "px";
+// 		}, false);
+
+// 		container.addEventListener("wheel", function(evt) {
+// 			if (evt.wheelDelta > 0) {
+// 				// 向上滚动 放大
+// 				seatsDom.style.transform = "scale(2)";
+// 			} else {
+// 				// 向下滚动 缩小
+// 				seatsDom.style.transform = "scale(0.5)";
+// 			}
+// 		}, false);
+// 	} catch(e) {
+// 		console.error(e)
+// 	}
+// })(config, mockData);
