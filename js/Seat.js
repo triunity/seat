@@ -19,21 +19,42 @@ export default class Seat {
     }
 
     _renderSeats() {
-        let strHtml = "";
+        let ulDom = document.createElement("ul");
+        ulDom.setAttribute("class", "seats-list");
 
-        strHtml += '<ul class="seats-list">';
+        this.data.forEach((item) => {
+            let liDom,
+                inputDom,
+                labelDom;
+            
+            liDom = document.createElement("li");
+            switch (item.status) {
+                case 0:
+                    liDom.setAttribute("class", "toselect");
+                    break;
+                case 1:
+                    liDom.setAttribute("class", "disselect");
+                    break;
+                case 2:
+                    liDom.setAttribute("class", "selected");
+                    break;
+            }
+            liDom.setAttribute("style", "transform: matrix(1, 0, 0, 1, " + (this.unit * ((item.col - 1) * (item.w + this.space) + 1)) + ", " + (this.unit * ((item.row - 1) * (item.h + this.space) + 1)));
 
-		this.data.forEach((item) => {
-			strHtml = strHtml + '\
-			<li class="' + (item.status == 0 ? 'toselect' : (item.status == 1 ? 'disselect' : 'selected')) + '" style="transform: matrix(1, 0, 0, 1, ' + (this.unit * ((item.col - 1) * (item.w + this.space) + 1)) + ', ' + (this.unit * ((item.row - 1) * (item.h + this.space) + 1)) + ');">\
-				<input type="checkbox">\
-				<label for=""></label>\
-			</li>';
-		});
+            inputDom = document.createElement("input");
+            inputDom.setAttribute("type", "checkbox");
+            inputDom.setAttribute("name", "seat_" + item.row + "_" + item.col);
 
-		strHtml += '</ul>';
+            labelDom = document.createElement("label");
+            labelDom.setAttribute("for", "seat_" + item.row + "_" + item.col);
 
-        this.contain.innerHTML = strHtml;
+            ulDom.appendChild(liDom);
+            liDom.appendChild(inputDom);
+            liDom.appendChild(labelDom);
+        });
+
+        this.contain.innerHTML = "";
+        this.contain.appendChild(ulDom);
     }
     _bindEvent() {}
 };

@@ -19,7 +19,7 @@ var seat = {
 
 var mockData = [
 	{
-		"row": 1,
+		"row": "1",
 		"col": 1,
 		// "x": 1,
 		// "y": 1,
