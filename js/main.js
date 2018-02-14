@@ -1,9 +1,6 @@
 import Seat from "./Seat.js"
 
 var config = {
-	"unit": 10,
-	"limit": 2,
-	"space": 1,
 	"id": "seatarea",
 };
 var seat = {
@@ -32,8 +29,8 @@ var mockData = [
 		"col": 2,
 		// "x": 1,
 		// "y": 1,
-		"w": 4,
-		"h": 4,
+		"w": 2,
+		"h": 2,
 		"status": 0, //0 可选; 1 不可选; 2 已选中
 		"type": 0,
 	}, {
@@ -382,45 +379,3 @@ var mockData = [
 ];
 
 new Seat(config, mockData);
-
-// (function (config, data) {
-// 	try {
-// 		if (config.id) {
-// 			var container = document.getElementById(config.id);
-// 		} else {
-// 			throw "please set dom id, init failed.";
-// 		}
-
-// 		var strHtml = '';
-// 		strHtml += '<ul class="seats-list">';
-
-// 		data.forEach(function (item) {
-// 			strHtml = strHtml + '\
-// 			<li class="' + (item.status == 0 ? 'toselect' : (item.status == 1 ? 'disselect' : 'selected')) + '" style="transform: matrix(1, 0, 0, 1, ' + (config.unit * ((item.col - 1) * (item.w + config.space) + 1)) + ', ' + (config.unit * ((item.row - 1) * (item.h + config.space) + 1)) + ');">\
-// 				<input type="checkbox">\
-// 				<label for=""></label>\
-// 			</li>';
-// 		});
-
-// 		strHtml += '</ul>';
-
-// 		container.innerHTML = strHtml;
-
-// 		var seatsDom = container.getElementsByClassName("seats-list")[0];
-// 		container.addEventListener("mouseup", function(evt) {
-// 			seatsDom.style.transformOrigin = evt.offsetX + "px " + evt.offsetY + "px";
-// 		}, false);
-
-// 		container.addEventListener("wheel", function(evt) {
-// 			if (evt.wheelDelta > 0) {
-// 				// 向上滚动 放大
-// 				seatsDom.style.transform = "scale(2)";
-// 			} else {
-// 				// 向下滚动 缩小
-// 				seatsDom.style.transform = "scale(0.5)";
-// 			}
-// 		}, false);
-// 	} catch(e) {
-// 		console.error(e)
-// 	}
-// })(config, mockData);
