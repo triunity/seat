@@ -1,0 +1,29 @@
+{
+  "name": "seat",
+  "version": "1.0.0",
+  "description": "choose seats online",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server",
+    "webpack": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/triunity/seat.git"
+  },
+  "keywords": [
+    "seat"
+  ],
+  "author": "lz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/triunity/seat/issues"
+  },
+  "homepage": "https://github.com/triunity/seat#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "webpack": "^3.11.0"
+  }
+}

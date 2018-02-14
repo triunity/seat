@@ -379,10 +379,10 @@ var mockData = [
 	}
 ];
 
-(function (root) {
+(function (config, data) {
 	try {
-		if (root.config.id) {
-			var container = document.getElementById(root.config.id);
+		if (config.id) {
+			var container = document.getElementById(config.id);
 		} else {
 			throw "please set dom id, init failed.";
 		}
@@ -390,9 +390,9 @@ var mockData = [
 		var strHtml = '';
 		strHtml += '<ul class="seats-list">';
 
-		root.mockData.forEach(function (item) {
+		data.forEach(function (item) {
 			strHtml = strHtml + '\
-			<li class="' + (item.status == 0 ? 'toselect' : (item.status == 1 ? 'disselect' : 'selected')) + '" style="transform: matrix(1, 0, 0, 1, ' + (root.config.unit * ((item.col - 1) * (item.w + root.config.space) + 1)) + ', ' + (root.config.unit * ((item.row - 1) * (item.h + root.config.space) + 1)) + ');">\
+			<li class="' + (item.status == 0 ? 'toselect' : (item.status == 1 ? 'disselect' : 'selected')) + '" style="transform: matrix(1, 0, 0, 1, ' + (config.unit * ((item.col - 1) * (item.w + config.space) + 1)) + ', ' + (config.unit * ((item.row - 1) * (item.h + config.space) + 1)) + ');">\
 				<input type="checkbox">\
 				<label for=""></label>\
 			</li>';
@@ -419,4 +419,4 @@ var mockData = [
 	} catch(e) {
 		console.error(e)
 	}
-})(window);
+})(config, mockData);
