@@ -32,7 +32,7 @@ export default class Seat {
     }
 
     _getTransformProperty(dom) {
-        let properties = ["transform", "WebkitTransform", "msTransform", "MozTransform", "OTransform"];
+        let properties = ["transform", "-webkit-transform", "-ms-transform", "-moz-transform", "-o-transform"];
 
         let p;
         while (p = properties.shift()) {
@@ -94,27 +94,61 @@ export default class Seat {
         this.contain.appendChild(divDom);
     }
     _bindEvent() {
-        let startPoint = {x: 0, y: 0},
-            initPoint = {x: 0, y: 0};
+        let isZoom = false,
+            oriLen = 0,
+            initDelta = 1,
+            delta = 1,
+            oriStartPoint = {"x": 0, "y": 0},
+            startPoint = {"x": 0, "y": 0},
+            initPoint = {"x": 0, "y": 0};
 
         this.contain.addEventListener("touchstart", (evt) => {
             evt.preventDefault();
-            startPoint.x = evt.changedTouches[0].pageX;
-            startPoint.y = evt.changedTouches[0].pageY;
+            oriStartPoint.x = startPoint.x;
+            oriStartPoint.y = startPoint.y;
+
+            startPoint.x = evt.touches[0].pageX;
+            startPoint.y = evt.touches[0].pageY;
         }, false);
 
         this.contain.addEventListener("touchmove", (evt) => {
             evt.preventDefault();
-            
-            let deltaX = evt.changedTouches[0].pageX - startPoint.x + initPoint.x,
-                deltaY = evt.changedTouches[0].pageY - startPoint.y + initPoint.y;
 
-            this.contain.getElementsByClassName("seats-list")[0].setAttribute("style", this.transformProperty + ":translate(" + deltaX + "px, " + deltaY + "px)");
+            if (isZoom || evt.changedTouches.length > 1) {
+                isZoom = true;
+
+                startPoint.x = oriStartPoint.x;
+                startPoint.y = oriStartPoint.y;
+
+                let len;
+                    
+                len = Math.sqrt(Math.pow(evt.changedTouches[0].pageX - evt.changedTouches[1].pageX, 2) + Math.pow(evt.changedTouches[0].pageY - evt.changedTouches[1].pageY, 2));
+
+                if (oriLen != 0) {
+                    delta = len / oriLen;
+                    this.contain.getElementsByClassName("seats-area")[0].setAttribute("style", this.transformProperty + "-origin: " + (evt.changedTouches[0].pageX + evt.changedTouches[1].pageX) / 2 + "px " + (evt.changedTouches[0].pageY + evt.changedTouches[1].pageY) / 2 + "px;" + this.transformProperty + ": scale(" + delta + ");");
+                } else {
+                    oriLen = len;
+                }
+            } else {
+                let deltaX = evt.touches[0].pageX - startPoint.x + initPoint.x,
+                    deltaY = evt.touches[0].pageY - startPoint.y + initPoint.y;
+
+                this.contain.getElementsByClassName("seats-list")[0].setAttribute("style", this.transformProperty + ": translate(" + deltaX + "px, " + deltaY + "px)");
+            }
         }, false);
 
         this.contain.addEventListener("touchend", (evt) => {
-            initPoint.x = initPoint.x + evt.changedTouches[0].pageX - startPoint.x;
-            initPoint.y = initPoint.y + evt.changedTouches[0].pageY - startPoint.y;
+            if (!isZoom) {
+                initPoint.x = initPoint.x + evt.changedTouches[0].pageX - startPoint.x;
+                initPoint.y = initPoint.y + evt.changedTouches[0].pageY - startPoint.y;
+            } else {
+                initDelta = initDelta * delta;
+            }
+
+            setTimeout(() => {
+                isZoom = false;
+            }, 100);
         }, false);
     }
 };
