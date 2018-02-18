@@ -7,9 +7,6 @@
 .seats-list li {
     display: block;
     position: absolute;
-
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
 }
 
 .toselect {
@@ -29,7 +26,10 @@
     display: block;
     height: 100%;
     width: 100%;
+
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 .seats-list li input {
-    display: none;
+    /* display: none; */
 }

@@ -44,7 +44,7 @@ export default class Seat {
     }
 
     _renderSeats() {
-        let divDom = document.createElement("div");
+        let divDom = document.createElement("form");
         divDom.setAttribute("class", "seats-area");
 
         let ulDom = document.createElement("ul");
@@ -58,6 +58,13 @@ export default class Seat {
 
             liDom = document.createElement("li");
 
+            inputDom = document.createElement("input");
+            inputDom.setAttribute("type", "checkbox");
+            inputDom.setAttribute("id", "seat_" + item.row + "_" + item.col);
+
+            labelDom = document.createElement("label");
+            labelDom.setAttribute("for", "seat_" + item.row + "_" + item.col);
+
             isSpecial = item.w && item.h && item.x && item.y;
             if (isSpecial) {
                 liDom.setAttribute("style", "width: " + (item.w * this.unit) + "px; height: " + (item.h * this.unit) + "px; " + this.transformProperty + ": matrix(1, 0, 0, 1, " + (this.unit * ((item.col - 1) * (item.w + this.space) + 1)) + ", " + (this.unit * ((item.row - 1) * (item.h + this.space) + 1)));
@@ -67,22 +74,17 @@ export default class Seat {
             
             switch (item.status) {
                 case 0:
-                    liDom.setAttribute("class", "toselect");
+                    labelDom.setAttribute("class", "toselect");
                     break;
                 case 1:
-                    liDom.setAttribute("class", "disselect");
+                    inputDom.setAttribute("checked", "checked");
+                    labelDom.setAttribute("class", "disselect");
                     break;
                 case 2:
-                    liDom.setAttribute("class", "selected");
+                    inputDom.setAttribute("checked", "checked");
+                    labelDom.setAttribute("class", "selected");
                     break;
             }
-
-            inputDom = document.createElement("input");
-            inputDom.setAttribute("type", "checkbox");
-            inputDom.setAttribute("name", "seat_" + item.row + "_" + item.col);
-
-            labelDom = document.createElement("label");
-            labelDom.setAttribute("for", "seat_" + item.row + "_" + item.col);
 
             divDom.appendChild(ulDom);
             ulDom.appendChild(liDom);
@@ -94,7 +96,8 @@ export default class Seat {
         this.contain.appendChild(divDom);
     }
     _bindEvent() {
-        let isZoom = false,
+        let isDrag = false,
+            isZoom = false,
             oriLen = 0,
             initDelta = 1,
             delta = 1,
@@ -104,6 +107,7 @@ export default class Seat {
 
         this.contain.addEventListener("touchstart", (evt) => {
             evt.preventDefault();
+
             oriStartPoint.x = startPoint.x;
             oriStartPoint.y = startPoint.y;
 
@@ -131,6 +135,8 @@ export default class Seat {
                     oriLen = len;
                 }
             } else {
+                isDrag = true;
+
                 let deltaX = evt.touches[0].pageX - startPoint.x + initPoint.x,
                     deltaY = evt.touches[0].pageY - startPoint.y + initPoint.y;
 
@@ -139,15 +145,32 @@ export default class Seat {
         }, false);
 
         this.contain.addEventListener("touchend", (evt) => {
-            if (!isZoom) {
+            evt.preventDefault();
+
+            if (isDrag) {
                 initPoint.x = initPoint.x + evt.changedTouches[0].pageX - startPoint.x;
                 initPoint.y = initPoint.y + evt.changedTouches[0].pageY - startPoint.y;
-            } else {
+            } else if (isZoom) {
                 initDelta = initDelta * delta;
+            } else {
+                let enableCheck,
+                    cancelCheck,
+                    seat = this.contain.querySelector("#" + evt.target.getAttribute("for"));
+
+                enableCheck = seat && /toselect/.test(evt.target.getAttribute("class"));
+                cancelCheck = seat && /selecting/.test(evt.target.getAttribute("class"));
+                if (enableCheck) {
+                    seat.click();
+                    evt.target.setAttribute("class", "selecting");
+                } else if (cancelCheck) {
+                    seat.click();
+                    evt.target.setAttribute("class", "toselect");
+                }
             }
 
             setTimeout(() => {
                 isZoom = false;
+                isDrag = false;
             }, 100);
         }, false);
     }
