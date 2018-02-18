@@ -15,6 +15,7 @@ export default class Seat {
         this.seatH = config.seatH || defaults.seatH;
         this.seatW = config.seatW || defaults.seatW;
         this.data = data || [];
+        this.seats = [];
 
         try {
             this.contain = document.getElementById(config.id);
@@ -44,7 +45,7 @@ export default class Seat {
     }
 
     _renderSeats() {
-        let divDom = document.createElement("form");
+        let divDom = document.createElement("div");
         divDom.setAttribute("class", "seats-area");
 
         let ulDom = document.createElement("ul");
@@ -73,9 +74,6 @@ export default class Seat {
             }
             
             switch (item.status) {
-                case 0:
-                    labelDom.setAttribute("class", "toselect");
-                    break;
                 case 1:
                     inputDom.setAttribute("checked", "checked");
                     labelDom.setAttribute("class", "disselect");
@@ -84,6 +82,9 @@ export default class Seat {
                     inputDom.setAttribute("checked", "checked");
                     labelDom.setAttribute("class", "selected");
                     break;
+                case 0:
+                default:
+                    labelDom.setAttribute("class", "toselect");
             }
 
             divDom.appendChild(ulDom);
@@ -157,12 +158,14 @@ export default class Seat {
                     cancelCheck,
                     seat = this.contain.querySelector("#" + evt.target.getAttribute("for"));
 
-                enableCheck = seat && /toselect/.test(evt.target.getAttribute("class"));
+                enableCheck = seat && /toselect/.test(evt.target.getAttribute("class")) && this.seats.length < this.limit;
                 cancelCheck = seat && /selecting/.test(evt.target.getAttribute("class"));
                 if (enableCheck) {
+                    this.seats.push(evt.target.getAttribute("for"));
                     seat.click();
                     evt.target.setAttribute("class", "selecting");
                 } else if (cancelCheck) {
+                    this.seats.splice(evt.target.getAttribute("for").indexOf(this.seats), 1);
                     seat.click();
                     evt.target.setAttribute("class", "toselect");
                 }
@@ -173,5 +176,23 @@ export default class Seat {
                 isDrag = false;
             }, 100);
         }, false);
+    }
+
+    getSeats() {
+        return this.seats;
+    }
+
+    reloadData(data) {
+        this.data = data || [];
+        this.seats = [];
+
+        let canReload = this.data.length > 0;
+
+        if (canReload) {
+            this._renderSeats();
+            return true;
+        } else {
+            return false;
+        }
     }
 };

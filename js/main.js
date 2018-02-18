@@ -377,5 +377,31 @@ var mockData = [
 		"type": 0,
 	}
 ];
+var mockData1 = [
+	{
+		"row": 1,
+		"col": 1,
+		"w": 4,
+		"h": 4,
+		"status": 0, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 1,
+		"col": 2,
+		"w": 4,
+		"h": 4,
+		"status": 0, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}, {
+		"row": 2,
+		"col": 1,
+		"w": 4,
+		"h": 4,
+		"status": 0, //0 可选; 1 不可选; 2 已选中
+		"type": 0,
+	}
+]
 
-new Seat(config, mockData);
+let seatArea = new Seat(config, mockData);
+
+seatArea.reloadData(mockData1);
