@@ -107,7 +107,7 @@ export default class Seat {
             initPoint = {"x": 0, "y": 0};
 
         this.contain.addEventListener("touchstart", (evt) => {
-            evt.preventDefault();
+            // evt.preventDefault();
 
             oriStartPoint.x = startPoint.x;
             oriStartPoint.y = startPoint.y;
@@ -129,30 +129,36 @@ export default class Seat {
 
                 len = Math.sqrt(Math.pow(evt.touches[0].pageX - evt.touches[1].pageX, 2) + Math.pow(evt.touches[0].pageY - evt.touches[1].pageY, 2));
 
-                if (oriLen != 0) {
-                    delta = len / oriLen;
-                    this.contain.getElementsByClassName("seats-area")[0].setAttribute("style", this.transformProperty + "-origin: " + (evt.touches[0].pageX + evt.touches[1].pageX) / 2 + "px " + (evt.touches[0].pageY + evt.touches[1].pageY) / 2 + "px;" + this.transformProperty + ": scale(" + delta + ");");
-                } else {
-                    oriLen = len;
-                }
-            } else {
-                isDrag = true;
+                oriLen != 0 ? delta = len / oriLen : "";
+                oriLen = len;
 
+                if (delta > 1 && initDelta < this.contain.clientWidth / (3 * this.seatW * this.unit) && initDelta < this.contain.clientHeight / (3 * this.seatH * this.unit)) {
+                    initDelta = parseFloat((initDelta * 10 + 2) / 10);
+                } else if (initDelta > 0.4) {
+                    initDelta = parseFloat((initDelta * 10 - 2) / 10);
+                }
+
+                this.contain.getElementsByClassName("seats-area")[0].setAttribute("style", this.transformProperty + "-origin: " + (evt.touches[0].pageX + evt.touches[1].pageX) / 2 + "px " + (evt.touches[0].pageY + evt.touches[1].pageY) / 2 + "px;" + this.transformProperty + ": scale(" + initDelta + ");");
+            } else {
                 let deltaX = evt.touches[0].pageX - startPoint.x + initPoint.x,
                     deltaY = evt.touches[0].pageY - startPoint.y + initPoint.y;
+
+                if (deltaX > 10 || deltaY > 10) {
+                    isDrag = true;
+                }
 
                 this.contain.getElementsByClassName("seats-list")[0].setAttribute("style", this.transformProperty + ": translate(" + deltaX + "px, " + deltaY + "px)");
             }
         }, false);
 
         this.contain.addEventListener("touchend", (evt) => {
-            evt.preventDefault();
+            // evt.preventDefault();
 
             if (isDrag) {
                 initPoint.x = initPoint.x + evt.changedTouches[0].pageX - startPoint.x;
                 initPoint.y = initPoint.y + evt.changedTouches[0].pageY - startPoint.y;
             } else if (isZoom) {
-                initDelta = initDelta * delta;
+                
             } else {
                 let enableCheck,
                     cancelCheck,
@@ -174,7 +180,7 @@ export default class Seat {
             setTimeout(() => {
                 isZoom = false;
                 isDrag = false;
-            }, 300);
+            }, 100);
         }, false);
     }
 
