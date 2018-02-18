@@ -119,19 +119,19 @@ export default class Seat {
         this.contain.addEventListener("touchmove", (evt) => {
             evt.preventDefault();
 
-            if (isZoom || evt.changedTouches.length > 1) {
+            if (evt.changedTouches.length > 1) {
                 isZoom = true;
 
                 startPoint.x = oriStartPoint.x;
                 startPoint.y = oriStartPoint.y;
 
                 let len;
-                    
-                len = Math.sqrt(Math.pow(evt.changedTouches[0].pageX - evt.changedTouches[1].pageX, 2) + Math.pow(evt.changedTouches[0].pageY - evt.changedTouches[1].pageY, 2));
+
+                len = Math.sqrt(Math.pow(evt.touches[0].pageX - evt.touches[1].pageX, 2) + Math.pow(evt.touches[0].pageY - evt.touches[1].pageY, 2));
 
                 if (oriLen != 0) {
                     delta = len / oriLen;
-                    this.contain.getElementsByClassName("seats-area")[0].setAttribute("style", this.transformProperty + "-origin: " + (evt.changedTouches[0].pageX + evt.changedTouches[1].pageX) / 2 + "px " + (evt.changedTouches[0].pageY + evt.changedTouches[1].pageY) / 2 + "px;" + this.transformProperty + ": scale(" + delta + ");");
+                    this.contain.getElementsByClassName("seats-area")[0].setAttribute("style", this.transformProperty + "-origin: " + (evt.touches[0].pageX + evt.touches[1].pageX) / 2 + "px " + (evt.touches[0].pageY + evt.touches[1].pageY) / 2 + "px;" + this.transformProperty + ": scale(" + delta + ");");
                 } else {
                     oriLen = len;
                 }
@@ -174,7 +174,7 @@ export default class Seat {
             setTimeout(() => {
                 isZoom = false;
                 isDrag = false;
-            }, 100);
+            }, 300);
         }, false);
     }
 

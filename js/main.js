@@ -404,4 +404,4 @@ var mockData1 = [
 
 let seatArea = new Seat(config, mockData);
 
-seatArea.reloadData(mockData1);
+// seatArea.reloadData(mockData1);
