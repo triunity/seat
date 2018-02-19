@@ -43,6 +43,28 @@ export default class Seat {
         }
         return false;
     }
+    _getOffsetRect(el) {
+        let box, body, docElem, scrollTop, scrollLeft, clientTop, clientLeft, top, left;
+        
+        box = el.getBoundingClientRect();
+
+        body = document.body;
+        docElem = document.documentElement;
+
+        scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
+        scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft;
+
+        clientTop = docElem.clientTop || body.clientTop;
+        clientLeft = docElem.clientLeft || body.clientLeft;
+
+        top = box.top + scrollTop - clientTop;
+        left = box.left + scrollLeft - clientLeft;
+
+        return {
+            top: Math.round(top),
+            left: Math.round(left),
+        }
+    }
 
     _renderSeats() {
         let divDom = document.createElement("div");
@@ -125,9 +147,10 @@ export default class Seat {
                 startPoint.x = oriStartPoint.x;
                 startPoint.y = oriStartPoint.y;
 
-                let len;
+                let len, rect;
 
                 len = Math.sqrt(Math.pow(evt.touches[0].pageX - evt.touches[1].pageX, 2) + Math.pow(evt.touches[0].pageY - evt.touches[1].pageY, 2));
+                rect = this._getOffsetRect(this.contain);
 
                 oriLen != 0 ? delta = len / oriLen : "";
                 oriLen = len;
@@ -138,7 +161,7 @@ export default class Seat {
                     initDelta = parseFloat((initDelta * 10 - 2) / 10);
                 }
 
-                this.contain.getElementsByClassName("seats-area")[0].setAttribute("style", this.transformProperty + "-origin: " + (evt.touches[0].pageX + evt.touches[1].pageX) / 2 + "px " + (evt.touches[0].pageY + evt.touches[1].pageY) / 2 + "px;" + this.transformProperty + ": scale(" + initDelta + ");");
+                this.contain.getElementsByClassName("seats-area")[0].setAttribute("style", this.transformProperty + "-origin: " + ((evt.touches[0].pageX + evt.touches[1].pageX) / 2 - rect.left) + "px " + ((evt.touches[0].pageY + evt.touches[1].pageY) / 2 - rect.top) + "px;" + this.transformProperty + ": scale(" + initDelta + ");");
             } else {
                 let deltaX = evt.touches[0].pageX - startPoint.x + initPoint.x,
                     deltaY = evt.touches[0].pageY - startPoint.y + initPoint.y;
